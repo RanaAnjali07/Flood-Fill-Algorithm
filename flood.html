@@ -1,0 +1,89 @@
+<script>
+
+	function isValid(screen, m, n, a, b, prevC, newC)
+	{
+		if(a<0 || a>= m || b<0 || b>= n || screen[a][b]!= prevC
+		|| screen[a][b]== newC)
+			return false;
+		return true;
+	}
+
+	function floodFill(screen, m, n, a, b, prevC, newC)
+	{
+		let queue = [];
+
+		queue.push([a, b]);
+
+		screen[a][b] = newC;
+
+		while(queue.length > 0)
+		{
+	
+			currPixel = queue[queue.length - 1];
+			queue.pop();
+
+			let posX = currPixel[0];
+			let posY = currPixel[1];
+d
+			if(isValid(screen, m, n, posX + 1, posY, prevC, newC))
+			{
+			
+				screen[posX + 1][posY] = newC;
+				queue.push([posX + 1, posY]);
+			}
+
+			if(isValid(screen, m, n, posX-1, posY, prevC, newC))
+			{
+				screen[posX-1][posY]= newC;
+				queue.push([posX-1, posY]);
+			}
+
+			if(isValid(screen, m, n, posX, posY + 1, prevC, newC))
+			{
+				screen[posX][posY + 1]= newC;
+				queue.push([posX, posY + 1]);
+			}
+
+			if(isValid(screen, m, n, posX, posY-1, prevC, newC))
+			{
+				screen[posX][posY-1]= newC;
+				queue.push([posX, posY-1]);
+			}
+		}
+	}
+	
+	let screen =[
+	[1, 1, 1, 1, 1, 1, 1, 1],
+	[1, 1, 1, 1, 1, 1, 0, 0],
+	[1, 0, 0, 1, 1, 0, 1, 1],
+	[1, 2, 2, 2, 2, 0, 1, 0],
+	[1, 1, 1, 2, 2, 0, 1, 0],
+	[1, 1, 1, 2, 2, 2, 2, 0],
+	[1, 1, 1, 1, 1, 2, 1, 1],
+	[1, 1, 1, 1, 1, 2, 2, 1]];
+
+	let m = screen.length;
+
+    let n = screen[0].length;
+
+	let a = 4;
+	let b = 4;
+
+	let prevC = screen[a][b];
+
+	let newC = 3;
+
+	floodFill(screen, m, n, a, b, prevC, newC);
+
+
+
+	for(let i = 0; i < m; i++)
+	{
+		for(let j = 0; j < n; j++)
+		{
+			document.write(screen[i][j] + " ");
+		}
+		document.write("</br>");
+	}
+	
+</script>
